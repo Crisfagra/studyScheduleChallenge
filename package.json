@@ -1,0 +1,11 @@
+{
+  "name": "studyschedulechallenge",
+  "version": "1.0.0",
+  "description": "service implementation that can create a study schedule that lists courses in an order",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Cristhian Grajales",
+  "license": "ISC"
+}
