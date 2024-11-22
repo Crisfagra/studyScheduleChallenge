@@ -2,10 +2,67 @@
   "name": "studyschedulechallenge",
   "version": "1.0.0",
   "description": "service implementation that can create a study schedule that lists courses in an order",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "build": "rm -rf dist && npm run build-ts",
+    "build-ts": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "prettier": "prettier ./node_modules/prettier/bin-prettier.js --write src/.",
+    "lint": "eslint src/**/*.ts --quiet && prettier --check src/**/*.ts && prettier --check '**/*.{yml,yaml}'",
+    "fix-lint": "eslint src/**/*.ts --quiet --fix && npm run prettier",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
+    "migration:generate": "npm run typeorm -- migration:generate ./src/database/migrations/CreateUserAndServiceTables -d ./src/data-source.ts ",
+    "migration:run": "npm run typeorm -- migration:run -d ./src/data-source.ts",
+    "seed": "ts-node src/database/seeders/seeder.ts",
+    "test": "node --max-old-space-size=4096 ./node_modules/jest/bin/jest.js --coverage --coverageReporters=lcov --logHeapUsage --forceExit"
   },
+  "keywords": [],
   "author": "Cristhian Grajales",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.7",
+    "pg": "^8.13.0",
+    "reflect-metadata": "^0.2.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "ts-node-dev": "^2.0.0",
+    "typeorm": "^0.3.20",
+    "typescript": "^5.6.3",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.2.1",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.13.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.7.8",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
+    "eslint": "^9.13.0",
+    "eslint-plugin": "^1.0.1",
+    "globals": "^15.11.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.3.3",
+    "standard": "^17.1.2",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript-eslint": "^8.11.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es6": true
+    }
+  }
 }
