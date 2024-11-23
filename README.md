@@ -33,13 +33,13 @@ Service implementation that can create a study schedule that lists courses in an
 3. Env variables
 
    ```bash
-   Crea un archivo .env en la raíz del proyecto con el siguiente contenido:
-    DB_HOST=localhost
-    DB_PORT=5432
-    DB_USERNAME=usuario_base_de_datos
-    DB_PASSWORD=contraseña_base_de_datos
-    DB_NAME=nombre_base_de_datos
-    JWT_SECRET=jwt_secret
+   Make an archive .env in the project root with following:
+      DB_HOST=localhost
+      DB_PORT=5432
+      DB_USERNAME=usuario_base_de_datos
+      DB_PASSWORD=contraseña_base_de_datos
+      DB_NAME=nombre_base_de_datos
+      JWT_SECRET=jwt_secret
 
    ```
 4. Docker init
@@ -57,7 +57,19 @@ Service implementation that can create a study schedule that lists courses in an
 
 # How to do a petition
 
-Do petitions from Postman o Curl a http://localhost:3000/api/schedule with a json like this
+1. Generate custom token
+   ```bash
+   node generateCustomToken.js
+   ```
+2. Make a POST to https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=<firebase-key> with the previous token generated in the body like a json.
+   ```bash
+      {
+         "token": "<generateCustomToken>",
+         "returnSecureToken": true
+      }
+   ```
+
+3. Do POST petition from Postman o Curl to http://localhost:3000/api/schedule with an authentication Bearer       <tokenFromReturnedFromPreviousPetition> and a json like this in the body raw
    ```bash
    {
     "userId": "30ecc27b-9df7-4dd3-b52f-d001e79bd035",
