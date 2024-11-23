@@ -1,15 +1,16 @@
-version: '3.8'
+version: "3.8"
 services:
   db:
-    image: postgres:15
-    container_name: postgres_schedule
+    image: 'postgres:latest'
+    restart: always
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: crisfagra
       POSTGRES_DB: schedule
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
+
 volumes:
-  postgres_data:
+  pg_data:
