@@ -61,7 +61,7 @@ Service implementation that can create a study schedule that lists courses in an
    ```bash
    node generateCustomToken.js
    ```
-2. Make a POST to https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=<firebase-key> with the previous token generated in the body like a json.
+2. Make a POST to https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=YOUR_API_KEY with the previous token generated in the body like a json.
    ```bash
       {
          "token": "<generateCustomToken>",
