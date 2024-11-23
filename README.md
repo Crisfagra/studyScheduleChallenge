@@ -13,7 +13,7 @@ Service implementation that can create a study schedule that lists courses in an
 - NPM >= 6.x
 - Docker desktop
 
-# Intalation
+# Instalation
 
 1. Clone
 
