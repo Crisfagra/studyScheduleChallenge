@@ -55,45 +55,53 @@ Service implementation that can create a study schedule that lists courses in an
    npm start
    ```
 
-# How to do a petition
+# How to do a request
 
 1. Generate custom token
    ```bash
    node generateCustomToken.js
    ```
-2. Make a POST to https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=YOUR_API_KEY with the previous token generated in the body like a json.
+2. Make a POST request with the previous token generated in the body like a json.
    ```bash
-      {
-         "token": "<generateCustomToken>",
-         "returnSecureToken": true
-      }
+      curl --location 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+         "token": "generateCustomToken": true
+      }'
    ```
 
-3. Do POST petition from Postman o Curl to http://localhost:3000/api/schedule with an authentication Bearer       <tokenFromReturnedFromPreviousPetition> and a json like this in the body raw
+3. Do POST request from Postman o Curl to http://localhost:3000/api/schedule with an authentication Bearer
    ```bash
-   {
-    "userId": "30ecc27b-9df7-4dd3-b52f-d001e79bd035",
-    "courses": [
-        {
-            "desiredCourse": "PortfolioConstruction",
-            "requiredCourse": "PortfolioTheories"
-        },
-        {
-            "desiredCourse": "InvestmentManagement",
-            "requiredCourse": "Investment"
-        },
-        {
-            "desiredCourse": "Investment",
-            "requiredCourse": "Finance"
-        },
-        {
-            "desiredCourse": "PortfolioTheories",
-            "requiredCourse": "Investment"
-        },
-        {
-            "desiredCourse": "InvestmentStyle",
-            "requiredCourse": "InvestmentManagement"
-        }
-      ]
-   }
+      curl --location 'http://localhost:3000/api/schedule' \
+      --header 'Content-Type: application/json' \
+      --header 'Authorization: Bearer YourTokenFromPreviousRequest' \
+      --data '{
+         "userId": "30ecc27b-9df7-4dd3-b52f-d001e79bd035",
+         "courses": [
+            {
+                  "desiredCourse": "PortfolioConstruction",
+                  "requiredCourse": "PortfolioTheories"
+            },
+            {
+                  "desiredCourse": "InvestmentManagement",
+                  "requiredCourse": "Investment"
+            },
+            {
+                  "desiredCourse": "Investment",
+                  "requiredCourse": "Finance"
+            },
+            {
+                  "desiredCourse": "PortfolioTheories",
+                  "requiredCourse": "Investment"
+            },
+            {
+                  "desiredCourse": "InvestmentStyle",
+                  "requiredCourse": "InvestmentManagement"
+            }
+         ]
+      }'
+   ```
+# How to run unit test
+   ```bash
+   npm run test
    ```
