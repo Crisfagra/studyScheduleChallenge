@@ -33,24 +33,29 @@ Service implementation that can create a study schedule that lists courses in an
 3. Env variables
 
    ```bash
-   Make an archive .env in the project root with following:
+   Make a file .env in the project root with following:
       DB_HOST=localhost
       DB_PORT=5432
-      DB_USERNAME=usuario_base_de_datos
-      DB_PASSWORD=contraseña_base_de_datos
-      DB_NAME=nombre_base_de_datos
+      DB_USERNAME=data_base_user
+      DB_PASSWORD=data_base_password
+      DB_NAME=data_base_name
       JWT_SECRET=jwt_secret
 
    ```
-4. Docker init
+4. Copy file serviceAccountKey.json inside ./src/config/
+5. Compile
+   ```bash
+   npm run build
+   ```
+6. Docker init
    ```bash
    docker-compose up
    ```
-5. Correr migraciones
+7. Correr migraciones
    ```bash
    npm run migration:run
    ```
-6. Iniciar el servidor
+8. Iniciar el servidor
    ```bash
    npm start
    ```
