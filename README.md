@@ -60,7 +60,7 @@ Service implementation that can create a study schedule that lists courses in an
    npm start
    ```
 
-# How to do a request
+# How do a request
 
 1. Generate custom token
    ```bash
