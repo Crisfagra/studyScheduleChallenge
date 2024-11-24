@@ -68,7 +68,7 @@ Service implementation that can create a study schedule that lists courses in an
    ```
 2. Make a POST request with the previous token generated in the body like a json.
    ```bash
-      curl --location 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=YOUR_FIREBASE_API_KEY' \
+      curl --location 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=FIREBASE_API_KEY' \
       --header 'Content-Type: application/json' \
       --data '{
          "token": "generateCustomToken": true
