@@ -10,4 +10,7 @@ export class Course {
 
   @Column()
   requiredCourse: string
+
+  @Column('uuid')
+  userId: string
 }
