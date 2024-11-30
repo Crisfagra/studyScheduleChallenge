@@ -1,42 +1,53 @@
-export function topologicalSort(courses) {
-  const graph = new Map()
-  const inDegree = new Map()
+export class TopologicalSort {
+  private graph: Map<string, string[]>
+  private inDegree: Map<string, number>
 
-  courses.forEach(({ desiredCourse, requiredCourse }) => {
-    if (!graph.has(desiredCourse)) 
-      graph.set(desiredCourse, [])
+  constructor() {
+    this.graph = new Map()
+    this.inDegree = new Map()
+  }
 
-    if (!graph.has(requiredCourse)) 
-      graph.set(requiredCourse, [])
-    
-    graph.get(requiredCourse).push(desiredCourse)
+  addDependency(desiredCourse: string, requiredCourse: string): void {
+    if (!this.graph.has(desiredCourse)) {
+      this.graph.set(desiredCourse, [])
+      this.inDegree.set(desiredCourse, 0)
+    }
+    if (!this.graph.has(requiredCourse)) {
+      this.graph.set(requiredCourse, [])
+      this.inDegree.set(requiredCourse, 0)
+    }
 
-    inDegree.set(desiredCourse, (inDegree.get(desiredCourse) || 0) + 1)
+    this.graph.get(requiredCourse)!.push(desiredCourse)
 
-    if (!inDegree.has(requiredCourse)) 
-      inDegree.set(requiredCourse, 0)
-  })
+    this.inDegree.set(desiredCourse, this.inDegree.get(desiredCourse)! + 1)
+  }
 
-  const queue = [...inDegree.entries()]
-    .filter(([_, degree]) => degree === 0)
-    .map(([node]) => node)
+  sort(): string[] {
+    const order: string[] = []
+    const queue: string[] = []
 
-  const result = []
-  while (queue.length) {
-    const current = queue.shift()
-    result.push(current)
-
-    graph.get(current).forEach((neighbor) => {
-      inDegree.set(neighbor, inDegree.get(neighbor) - 1)
-
-      if (inDegree.get(neighbor) === 0) 
-        queue.push(neighbor)
+    this.inDegree.forEach((degree, desiredCourse) => {
+      if (degree === 0) {
+        queue.push(desiredCourse)
+      }
     })
-  }
 
-  if (result.length !== graph.size) {
-    throw new Error('There is a cyclic in the course prerequisites.')
-  }
+    while (queue.length > 0) {
+      const current = queue.shift()!
+      order.push(current)
 
-  return result
+      for (const dependent of this.graph.get(current)!) {
+        this.inDegree.set(dependent, this.inDegree.get(dependent)! - 1)
+        if (this.inDegree.get(dependent) === 0) {
+          queue.push(dependent)
+        }
+      }
+    }
+
+    if (order.length !== this.graph.size) {
+      throw new Error('Cycle detected! The graph is not a Directed Acyclic Graph (DAG).')
+    }
+
+    return order
+  }
 }
